@@ -9,7 +9,7 @@ import Foundation
 import GoogleMobileAds
 
 public final class InterstitialAD: NSObject, GADFullScreenContentDelegate {
-    var interstitialAD: GADInterstitialAd?
+    public var interstitialAD: GADInterstitialAd?
     var completion: (() -> Void)?
     var adUnitID: String
 
