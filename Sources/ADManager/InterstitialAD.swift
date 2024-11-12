@@ -33,8 +33,8 @@ public final class InterstitialAD: NSObject, GADFullScreenContentDelegate {
 
     public func showAD(completion: @escaping () -> Void) {
         self.completion = completion
-        if let ad = interstitialAD {
-            ad.present(fromRootViewController: UIApplication.shared.keyWindowPresentedController!)
+        if let ad = interstitialAD, let rootViewController = UIApplication.shared.keyWindowPresentedController {
+            ad.present(fromRootViewController: rootViewController)
         } else {
             print("Ad wasn't ready")
         }

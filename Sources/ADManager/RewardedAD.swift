@@ -34,8 +34,8 @@ public final class RewardedAD: NSObject, GADFullScreenContentDelegate {
 
     public func showAD(completion: @escaping () -> Void) {
         self.completion = completion
-        if let ad = rewardedAD {
-            ad.present(fromRootViewController: UIApplication.shared.keyWindowPresentedController!) { [weak self] in
+        if let ad = rewardedAD, let rootViewController = UIApplication.shared.keyWindowPresentedController {
+            ad.present(fromRootViewController: rootViewController) { [weak self] in
                 self?.completion?()
                 self?.loadAD()
             }
