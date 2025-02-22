@@ -8,8 +8,8 @@
 import Foundation
 import GoogleMobileAds
 
-public final class RewardedAD: NSObject, GADFullScreenContentDelegate {
-    var rewardedAD: GADRewardedAd?
+public final class RewardedAD: NSObject, FullScreenContentDelegate {
+    var rewardedAD: RewardedAd?
     var completion: (() -> Void)?
     var adUnitID: String
 
@@ -20,8 +20,8 @@ public final class RewardedAD: NSObject, GADFullScreenContentDelegate {
     }
 
     public func loadAD() {
-        let request = GADRequest()
-        GADRewardedAd.load(withAdUnitID: self.adUnitID, request: request) { [weak self] (ad, error) in
+        let request = Request()
+        RewardedAd.load(with: self.adUnitID, request: request) { [weak self] (ad, error) in
             guard let self = self else { return }
             if let error = error {
                 print("Rewarded ad failed to load with error: \(error.localizedDescription)")
@@ -35,7 +35,7 @@ public final class RewardedAD: NSObject, GADFullScreenContentDelegate {
     public func showAD(completion: @escaping () -> Void) {
         self.completion = completion
         if let ad = rewardedAD, let rootViewController = UIApplication.shared.keyWindowPresentedController {
-            ad.present(fromRootViewController: rootViewController) { [weak self] in
+            ad.present(from: rootViewController) { [weak self] in
                 self?.completion?()
                 self?.loadAD()
             }
